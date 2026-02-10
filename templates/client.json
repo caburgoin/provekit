@@ -1,0 +1,15 @@
+{
+  "id": "{{CLIENT_ID}}",
+  "name": "{{CLIENT_NAME}}",
+  "brandColor": "#1a365d",
+  "accentColor": "#e53e3e",
+  "fontFamily": "Inter",
+  "contact": {
+    "name": "{{CONTACT_NAME}}",
+    "email": "{{CONTACT_EMAIL}}"
+  },
+  "preferences": {
+    "language": "es",
+    "tone": "professional"
+  }
+}

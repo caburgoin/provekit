@@ -1,0 +1,22 @@
+{
+  "name": "provekit",
+  "version": "1.0.0",
+  "description": "Backend-first PoC iteration framework. Prove your idea works with production-grade output quality before building a full app. 9 commands, 5 agents, 10 patterns, 7 phases. Pairs with SpecKit for full SDLC handoff.",
+  "author": {
+    "name": "Carlos Burgoin",
+    "email": "caburgoin@gmail.com"
+  },
+  "repository": "https://github.com/caburgoin/provekit",
+  "license": "MIT",
+  "keywords": [
+    "poc",
+    "prototype",
+    "backend-first",
+    "iteration",
+    "thick-backend",
+    "thin-orchestration",
+    "claude-code",
+    "speckit-companion"
+  ],
+  "commands": "./commands/"
+}

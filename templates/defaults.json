@@ -1,0 +1,22 @@
+{
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSeconds": 45
+  },
+  "branding": {
+    "primaryColor": "#1a365d",
+    "accentColor": "#e53e3e",
+    "fontFamily": "Inter",
+    "fontSize": {
+      "title": 64,
+      "subtitle": 40,
+      "body": 32
+    }
+  },
+  "output": {
+    "codec": "h264",
+    "quality": "high"
+  }
+}
