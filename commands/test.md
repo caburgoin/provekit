@@ -1,5 +1,5 @@
 ---
-description: Run three-tier testing with enforced tier order. Script-level, API-level, then UI-level — never skip tiers.
+description: Run three-tier testing with enforced tier order. Script-level, API-level, then UI-level — never skip tiers. Validates each tier passes before advancing.
 argument-hint: <tier1|tier2|tier3|status> [target] [--force] [--verbose]
 ---
 
