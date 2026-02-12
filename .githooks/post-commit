@@ -1,0 +1,48 @@
+#!/bin/bash
+# Auto-propagate provekit version to speckit-marketplace registry
+
+PLUGIN_JSON="plugin.json"
+MARKETPLACE_DIR="$HOME/.claude/plugins/marketplaces/speckit-marketplace"
+MARKETPLACE_JSON="$MARKETPLACE_DIR/.claude-plugin/marketplace.json"
+
+# Only run if plugin.json was part of this commit
+if ! git diff-tree --no-commit-id --name-only -r HEAD | grep -q "^plugin.json$"; then
+  exit 0
+fi
+
+# Only run if marketplace exists locally
+if [[ ! -f "$MARKETPLACE_JSON" ]]; then
+  echo "[provekit] Marketplace not found locally, skipping version sync"
+  exit 0
+fi
+
+# Extract new version
+NEW_VERSION=$(grep '"version"' "$PLUGIN_JSON" | head -1 | cut -d'"' -f4)
+
+if [[ -z "$NEW_VERSION" ]]; then
+  exit 0
+fi
+
+# Update provekit version in marketplace.json
+cd "$MARKETPLACE_DIR"
+python3 -c "
+import json, sys
+with open('$MARKETPLACE_JSON', 'r') as f:
+    data = json.load(f)
+for p in data['plugins']:
+    if p['name'] == 'provekit':
+        if p['version'] != '$NEW_VERSION':
+            p['version'] = '$NEW_VERSION'
+            with open('$MARKETPLACE_JSON', 'w') as f:
+                json.dump(data, f, indent=2)
+                f.write('\n')
+            # Commit and push marketplace update
+            git add .claude-plugin/marketplace.json
+            git commit -m 'chore(provekit): auto-bump version to $NEW_VERSION'
+            git push 2>/dev/null || echo '[provekit] Marketplace push failed — manual push needed'
+            print(f'[provekit] Marketplace updated to $NEW_VERSION')
+        else:
+            print(f'[provekit] Marketplace already at $NEW_VERSION')
+        sys.exit(0)
+print('[provekit] Plugin not found in marketplace')
+"
